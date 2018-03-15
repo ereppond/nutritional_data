@@ -3,12 +3,19 @@ import pandas as pd
 import numpy as np 
 import sys
 
+
+'''need to ask if they want to specify their calories OR their macros  '''
 def specifications():
 	dict_of_specifications = {'calories': 2000, 'proteins': 150, 'carbs': 150, 'fats': 50, 'meals': 3}
-	for key in dict_of_specifications:
-		if input('The default number of {} is {}. Would you like to specify a different amount? y/n '\
-			.format(key, dict_of_specifications[key])) == 'y'.lower():
-	 		dict_of_specifications[key] = int(input('Input the number of {} you eat per day: '.format(key)))
+	#calories or macros 
+	if input('Would you like to specify calories or macronutrient daily count? Enter cal or mac') == 'cal'.lower():
+		dict_of_specifications['calories'] = int(input('Input the number of calories you would like to eat per day: '))
+		#need them to input the percentage of proteins carbs and fats they would like to eat out of those calories 
+		for key in dict_of_specifications:
+			if key != 'calories':
+				if input('The default number of {} is {}. Would you like to specify a different amount? y/n '\
+					.format(key, dict_of_specifications[key])) == 'Y'.lower():
+			 		dict_of_specifications[key] = int(input('Input the number of {} you eat per day: '.format(key)))
 	keys = [i + 1 for i in range(dict_of_specifications['meals'])]
 	num_of_meals = {key: None for key in keys}
 	if input('Would you like to specify the percentage of calories being divided amoungst each meal? y/n ') == 'y'.lower():
@@ -21,6 +28,12 @@ def specifications():
 		dict_of_specifications['carbs'], dict_of_specifications['fats'], num_of_meals)
 
 	return user
+
+def calories_to_macros(dict_of_specifications):
+	'''This method will clarify how many calories the user would like, as well as calculating the macros
+	based off of what percentages of each they would like'''
+	dict_of_specifications['calories'] = int(input('Input the number of calories you would like to eat per day: '))
+	return dict_of_specifications
 
 
 class Sort_Nutr:
@@ -45,13 +58,10 @@ class Sort_Nutr:
 			macros_per_meal[key].append(round(self.num_of_meals[key] * self.carbs, 3))
 			macros_per_meal[key].append(round(self.num_of_meals[key] * self.fats, 3))
 		for key in macros_per_meal:
-			print('Meal {} calls for {} calories, {}g of protein, {}g of carbs, and {}g of fat.'\
-				.format(key, macros_per_meal[key][0], macros_per_meal[key][1],macros_per_meal[key][2],\
+			print('Meal {} calls for {} calories, {}g of protein, {}g of carbs, and {}g of fat'\
+				.format(key, macros_per_meal[key][0], macros_per_meal[key][1],macros_per_meal[keys][2],\
 					macros_per_meal[key][3]))
 
-
-	def find_meals():
-		pass
 
 	'''if we want to ask them what they would like to do, we need to call an input function
 		when we are initializing the self objects
