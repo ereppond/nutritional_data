@@ -1,4 +1,4 @@
-#import nutritional_data.csv as data 
+import nutritional_data.csv as data 
 import pandas as pd 
 import numpy as np 
 import sys
@@ -21,7 +21,7 @@ def specifications():
 	num_of_meals = {key: None for key in keys}
 	if input('Would you like to specify the percentage of calories being divided amoungst each meal? y/n ') == 'y'.lower():
 		for i in range(len(keys)):
-			num_of_meals[i + 1] = input('What percentage of calories would you like meal {} to be? '.format(i + 1))
+			num_of_meals[i + 1] = input('What percentage (in decimal form) of calories would you like meal {} to be? '.format(i + 1))
 	#if they choose not to specify the percentages, it will automatically set equally 
 	else:
 		num_of_meals = {key: 1/dict_of_specifications['meals'] for key in keys}
@@ -38,9 +38,9 @@ def calories_to_macros(dict_of_specifications):
 	based off of what percentages of each they would like'''
 	dict_of_specifications['calories'] = int(input('Input the number of calories you would like to eat per day: '))
 	for key in dict_of_specifications:
-		if key != 'calories':
+		if key != 'calories' and key != 'meals':
 			perc = float(input('Input the percentage(in decimal form) of calories you would like to be {}: '.format(key)))
-			dict_of_specifications[key] = calories * perc
+			dict_of_specifications[key] = dict_of_specifications['calories'] * perc
 	return dict_of_specifications
 
 
@@ -49,9 +49,9 @@ def macros_to_calories(dict_of_specifications):
 	'''This method will take in the specifications of macros and return the updated dictionary with the proper number
 	of calories'''
 	calories = 0
-	dict_of_specifications['proteins'] = int(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
-	dict_of_specifications['carbs'] = int(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
-	dict_of_specifications['fats'] = int(input('Input the number of fats you(in grams) you would like to eat per day: ')) * 9
+	dict_of_specifications['proteins'] = float(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
+	dict_of_specifications['carbs'] = float(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
+	dict_of_specifications['fats'] = float(input('Input the number of fats you(in grams) you would like to eat per day: ')) * 9
 	return dict_of_specifications
 
 
@@ -60,7 +60,7 @@ class Sort_Nutr:
 	'''This class will take in different parameters such as ones macros, calories to help identify
 	which foods will fit into each different meal and/or day'''
 
-	pass
+	
 	def __init__(self, calories = 2000, protein = 150, carbs = 150, fats = 50, num_of_meals = {1: 0.33, 2: 0.33, 3: 0.33}):
 		self.calories = calories
 		self.num_of_meals = num_of_meals
@@ -83,7 +83,9 @@ class Sort_Nutr:
 					macros_per_meal[key][3]))
 
 
-	'''question: in an init method, can you run an 				inputfunction? 
-			for example, could you say:
-				self.calories = input(....)
-	'''
+	def find_foods(self):
+		pass
+
+
+
+
