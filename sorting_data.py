@@ -8,19 +8,21 @@ import sys
 def specifications():
 	dict_of_specifications = {'calories': 2000, 'proteins': 150, 'carbs': 150, 'fats': 50, 'meals': 3}
 	#calories or macros 
-	if input('Would you like to specify calories or macronutrient daily count? Enter cal or mac') == 'cal'.lower():
-		dict_of_specifications['calories'] = int(input('Input the number of calories you would like to eat per day: '))
-		#need them to input the percentage of proteins carbs and fats they would like to eat out of those calories 
-		for key in dict_of_specifications:
-			if key != 'calories':
-				if input('The default number of {} is {}. Would you like to specify a different amount? y/n '\
-					.format(key, dict_of_specifications[key])) == 'Y'.lower():
-			 		dict_of_specifications[key] = int(input('Input the number of {} you eat per day: '.format(key)))
+	if input('Would you like to specify calories or macronutrient daily count? Enter cal or macros: ') == 'cal'.lower():
+		dict_of_specifications = calories_to_macros(dict_of_specifications)
+	else: 
+		dict_of_specifications = macros_to_calories(dict_of_specifications)
+	
+	dict_of_specifications['meals'] = int(input('Input the number of meals you eat per day: '))
+	#user can choose to set the percentages of calories per meal 
 	keys = [i + 1 for i in range(dict_of_specifications['meals'])]
+
+	#this will initiate the percentages of macros the user would like for each meal they have
 	num_of_meals = {key: None for key in keys}
 	if input('Would you like to specify the percentage of calories being divided amoungst each meal? y/n ') == 'y'.lower():
 		for i in range(len(keys)):
 			num_of_meals[i + 1] = input('What percentage of calories would you like meal {} to be? '.format(i + 1))
+	#if they choose not to specify the percentages, it will automatically set equally 
 	else:
 		num_of_meals = {key: 1/dict_of_specifications['meals'] for key in keys}
 
@@ -29,11 +31,29 @@ def specifications():
 
 	return user
 
+
+
 def calories_to_macros(dict_of_specifications):
 	'''This method will clarify how many calories the user would like, as well as calculating the macros
 	based off of what percentages of each they would like'''
 	dict_of_specifications['calories'] = int(input('Input the number of calories you would like to eat per day: '))
+	for key in dict_of_specifications:
+		if key != 'calories':
+			perc = float(input('Input the percentage(in decimal form) of calories you would like to be {}: '.format(key)))
+			dict_of_specifications[key] = calories * perc
 	return dict_of_specifications
+
+
+
+def macros_to_calories(dict_of_specifications):
+	'''This method will take in the specifications of macros and return the updated dictionary with the proper number
+	of calories'''
+	calories = 0
+	dict_of_specifications['proteins'] = int(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
+	dict_of_specifications['carbs'] = int(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
+	dict_of_specifications['fats'] = int(input('Input the number of fats you(in grams) you would like to eat per day: ')) * 9
+	return dict_of_specifications
+
 
 
 class Sort_Nutr:
@@ -63,28 +83,7 @@ class Sort_Nutr:
 					macros_per_meal[key][3]))
 
 
-	'''if we want to ask them what they would like to do, we need to call an input function
-		when we are initializing the self objects
-
-		we can ask how many calories they want per day
-
-		we can ask if they just want breakfast lunch and dinner 
-			if they say 'n'
-			we can ask them what they would like their meals to be 
-				as well as the percentages of calories they would
-				like to go with that meal - save in a list orderded by meal
-					OR save in a dictionary thats keys are numbers and values are percentages
-					**** note cannot save by name because dictionaries keys are sorted
-					can initate the dictionary when they give us the number of meals 
-			if they say 'y' we will automatically set the meals to 
-				breakfast lunch and dinner
-
-		we can ask if they would like their macros set to a standard 2000 calorie day
-			if they say 'n'
-				they will specify they macros they would like and we will divide 
-				the macros accoring to the percentages that were provided earlier 
-
-		question: in an init method, can you run an imput function? 
+	'''question: in an init method, can you run an 				inputfunction? 
 			for example, could you say:
 				self.calories = input(....)
 	'''
