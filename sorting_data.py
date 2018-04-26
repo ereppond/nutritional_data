@@ -1,4 +1,4 @@
-import nutritional_data.csv as data 
+# import nutritional_data.csv as data 
 import pandas as pd 
 import numpy as np 
 import sys
@@ -86,6 +86,7 @@ class Sort_Nutr:
 	def find_foods(self):
 		pass
 
-
-
-
+if __name__ == '__main__':
+	user = specifications()
+	sorting = Sort_Nutr()
+	sorting.calc_cals_per_meal()
