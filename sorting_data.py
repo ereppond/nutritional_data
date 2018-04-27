@@ -8,7 +8,7 @@ def specifications():
 	'''This function asks the user what their daily intake specifications are.
 
 	Returns:
-		user: a Sort_Nutr object with parameters of specifications that the user inputted 
+		user (Sort_Nutr object): has parameters of specifications that the user inputted 
 	'''
 	specs_dict = {'calories': 2000, 'proteins': 150, 'carbs': 150, 'fats': 50, 'meals': 3}
 	if input('Would you like to specify calories or macronutrient daily count? Enter cal or macros: ') == 'cal'.lower():
@@ -38,10 +38,10 @@ def calories_to_macros(specs_dict):
 	'''This method will clarify how many calories the user would like, as well as calculating the macros based off of what percentages of each they would like
 
 	Parameters: 
-		specs_dict: A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins.
+		specs_dict (dictionary): A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins.
 
 	Returns:
-		specs_dict: Updates specs dict
+		specs_dict (dictionary): Updated specs dict
 	'''
 
 	specs_dict['calories'] = int(input('Input the number of calories you would like to eat per day: '))
@@ -54,16 +54,15 @@ def calories_to_macros(specs_dict):
 
 
 def macros_to_calories(specs_dict):
-	'''This method will take in the specifications of macros and return the updated dictionary with the proper number
-	of calories
+	'''This method will take in the specifications of macros and return the updated dictionary with the proper number of calories.
 
 	Parameters: 
-		specs_dict: A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins.
+		specs_dict (dictionary): A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins.
 
 	Returns:
-		specs_dict: Updates specs dict
+		specs_dict (dictionary): Updated specs dict
 	'''
-	
+
 	calories = 0
 	specs_dict['proteins'] = float(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
 	specs_dict['carbs'] = float(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
@@ -73,11 +72,19 @@ def macros_to_calories(specs_dict):
 
 
 class Sort_Nutr:
-	'''This class will take in different parameters such as ones macros, calories to help identify
-	which foods will fit into each different meal and/or day'''
+	'''This class will take in different parameters such as ones macros and calories to help identify which foods will fit into each different meal and/or day'''
 
-	
 	def __init__(self, calories = 2000, protein = 150, carbs = 150, fats = 50, num_of_meals = {1: 0.33, 2: 0.33, 3: 0.33}):
+		'''This init method will initialize all the self parameters needed for this class.
+
+		Parameters: 
+			calories (float):
+			num_of_meals (float):
+			protein (float):
+			carbs (float):
+			fats: (float):
+		'''
+
 		self.calories = calories
 		self.num_of_meals = num_of_meals
 		self.protein = protein
