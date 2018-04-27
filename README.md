@@ -1,20 +1,16 @@
-----
-###
-This is a repository for the nutritional data collected from Kaggle with python functions to sort through the food data.
+
+####This is a repository for the nutritional data collected from Kaggle with python functions to sort through the food data.
 
 >The goal of this dataset is to build programs that can take in a number of calories, or macros and return a list of foods that would fit in that desired number of calories or macros.
 
 
 
 ----
-## usage
+### features:
 1. Write markdown text in this textarea.
 2. Click 'HTML Preview' button.
 
 ----
-## markdown quick reference
-# headers
-
 *emphasis*
 
 **strong**
