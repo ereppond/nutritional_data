@@ -38,7 +38,12 @@ def calories_to_macros(specs_dict):
 	'''This method will clarify how many calories the user would like, as well as calculating the macros based off of what percentages of each they would like
 
 	Parameters: 
-		specs_dict: A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins'''
+		specs_dict: A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins.
+
+	Returns:
+		specs_dict: Updates specs dict
+	'''
+
 	specs_dict['calories'] = int(input('Input the number of calories you would like to eat per day: '))
 	for key in specs_dict:
 		if key != 'calories' and key != 'meals':
@@ -50,7 +55,15 @@ def calories_to_macros(specs_dict):
 
 def macros_to_calories(specs_dict):
 	'''This method will take in the specifications of macros and return the updated dictionary with the proper number
-	of calories'''
+	of calories
+
+	Parameters: 
+		specs_dict: A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins.
+
+	Returns:
+		specs_dict: Updates specs dict
+	'''
+	
 	calories = 0
 	specs_dict['proteins'] = float(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
 	specs_dict['carbs'] = float(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
