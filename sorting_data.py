@@ -4,55 +4,58 @@ import numpy as np
 import sys
 
 
-'''need to ask if they want to specify their calories OR their macros  '''
 def specifications():
-	dict_of_specifications = {'calories': 2000, 'proteins': 150, 'carbs': 150, 'fats': 50, 'meals': 3}
-	#calories or macros 
-	if input('Would you like to specify calories or macronutrient daily count? Enter cal or macros: ') == 'cal'.lower():
-		dict_of_specifications = calories_to_macros(dict_of_specifications)
-	else: 
-		dict_of_specifications = macros_to_calories(dict_of_specifications)
-	
-	dict_of_specifications['meals'] = int(input('Input the number of meals you eat per day: '))
-	#user can choose to set the percentages of calories per meal 
-	keys = [i + 1 for i in range(dict_of_specifications['meals'])]
+	'''This function asks the user what their daily intake specifications are.
 
-	#this will initiate the percentages of macros the user would like for each meal they have
+	Returns:
+		user: a Sort_Nutr object with parameters of specifications that the user inputted 
+	'''
+	specs_dict = {'calories': 2000, 'proteins': 150, 'carbs': 150, 'fats': 50, 'meals': 3}
+	if input('Would you like to specify calories or macronutrient daily count? Enter cal or macros: ') == 'cal'.lower():
+		specs_dict = calories_to_macros(specs_dict)
+	else: 
+		specs_dict = macros_to_calories(specs_dict)
+	
+	specs_dict['meals'] = int(input('Input the number of meals you eat per day: '))
+	keys = [i + 1 for i in range(specs_dict['meals'])]
+
 	num_of_meals = {key: None for key in keys}
 	if input('Would you like to specify the percentage of calories being divided amoungst each meal? y/n ') == 'y'.lower():
 		for i in range(len(keys)):
 			num_of_meals[i + 1] = input('What percentage (in decimal form) of calories would you like meal {} to be? '.format(i + 1))
-	#if they choose not to specify the percentages, it will automatically set equally 
+	#If they choose not to specify the percentages, it will automatically set equally 
 	else:
-		num_of_meals = {key: 1/dict_of_specifications['meals'] for key in keys}
+		num_of_meals = {key: 1/specs_dict['meals'] for key in keys}
 
-	user = Sort_Nutr(dict_of_specifications['calories'], dict_of_specifications['proteins'],\
-		dict_of_specifications['carbs'], dict_of_specifications['fats'], num_of_meals)
+	user = Sort_Nutr(specs_dict['calories'], specs_dict['proteins'],\
+		specs_dict['carbs'], specs_dict['fats'], num_of_meals)
 
 	return user
 
 
 
-def calories_to_macros(dict_of_specifications):
-	'''This method will clarify how many calories the user would like, as well as calculating the macros
-	based off of what percentages of each they would like'''
-	dict_of_specifications['calories'] = int(input('Input the number of calories you would like to eat per day: '))
-	for key in dict_of_specifications:
+def calories_to_macros(specs_dict):
+	'''This method will clarify how many calories the user would like, as well as calculating the macros based off of what percentages of each they would like
+
+	Parameters: 
+		specs_dict: '''
+	specs_dict['calories'] = int(input('Input the number of calories you would like to eat per day: '))
+	for key in specs_dict:
 		if key != 'calories' and key != 'meals':
 			perc = float(input('Input the percentage(in decimal form) of calories you would like to be {}: '.format(key)))
-			dict_of_specifications[key] = dict_of_specifications['calories'] * perc
-	return dict_of_specifications
+			specs_dict[key] = specs_dict['calories'] * perc
+	return specs_dict
 
 
 
-def macros_to_calories(dict_of_specifications):
+def macros_to_calories(specs_dict):
 	'''This method will take in the specifications of macros and return the updated dictionary with the proper number
 	of calories'''
 	calories = 0
-	dict_of_specifications['proteins'] = float(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
-	dict_of_specifications['carbs'] = float(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
-	dict_of_specifications['fats'] = float(input('Input the number of fats you(in grams) you would like to eat per day: ')) * 9
-	return dict_of_specifications
+	specs_dict['proteins'] = float(input('Input the number of proteins(in grams) you would like to eat per day: ')) * 4
+	specs_dict['carbs'] = float(input('Input the number of carbs you(in grams) you would like to eat per day: ')) * 4
+	specs_dict['fats'] = float(input('Input the number of fats you(in grams) you would like to eat per day: ')) * 9
+	return specs_dict
 
 
 
