@@ -23,7 +23,7 @@ def specifications():
 	if input('Would you like to specify the percentage of calories being divided amoungst each meal? y/n ') == 'y'.lower():
 		for i in range(len(keys)):
 			num_of_meals[i + 1] = input('What percentage (in decimal form) of calories would you like meal {} to be? '.format(i + 1))
-	#If they choose not to specify the percentages, it will automatically set equally 
+	#If they choose not to specify the percentages, it will automatically set equally.
 	else:
 		num_of_meals = {key: 1/specs_dict['meals'] for key in keys}
 
@@ -38,7 +38,7 @@ def calories_to_macros(specs_dict):
 	'''This method will clarify how many calories the user would like, as well as calculating the macros based off of what percentages of each they would like
 
 	Parameters: 
-		specs_dict: '''
+		specs_dict: A dictionary of the specifcations of meals and how they are each divided into proteins, carbs, and proteins'''
 	specs_dict['calories'] = int(input('Input the number of calories you would like to eat per day: '))
 	for key in specs_dict:
 		if key != 'calories' and key != 'meals':
