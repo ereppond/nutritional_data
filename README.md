@@ -28,7 +28,7 @@ This is a repository for the nutritional data collected from Kaggle with python 
 
 ----
 ## changelog
-* 17-Feb-2013 re-design
+* 27-Apr-2018 re-design
 
 ----
 ## references
